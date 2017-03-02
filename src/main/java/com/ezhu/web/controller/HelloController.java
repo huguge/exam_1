@@ -9,6 +9,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -106,7 +107,7 @@ public class HelloController {
 	 * @param name
 	 * @param pw
 	 */
-	@RequestMapping(value = "/getPerson", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPerson", method = RequestMethod.POST)
 	public void getPerson(String name, PrintWriter pw) {
 		pw.write("hello,"+name);
 	}
@@ -124,5 +125,17 @@ public class HelloController {
 	}
 	
 	
+	/**
+	 * 页面跳转接口
+	 * @url:  
+	 * 
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="/page/{page}", method = RequestMethod.GET)
+	public String page(@PathVariable("page") String page) {
+		System.out.println("page = "+page);
+		return "/test/"+page;
+	}
 	
 }
