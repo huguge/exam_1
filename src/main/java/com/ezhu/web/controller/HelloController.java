@@ -103,7 +103,7 @@ public class HelloController {
 	/**
 	 * 使用Ajax调用  pass the parameters to front-end using ajax
 	 * @url: http://localhost/exam_1/mvc/getPerson?name=hhh
-	 * 前台页面没有用上
+	 * 前台页面没有用上 --> 增加了底部的page方法 --> 页面可以调用了
 	 * @param name
 	 * @param pw
 	 */
