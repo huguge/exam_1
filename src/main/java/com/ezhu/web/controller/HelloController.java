@@ -101,18 +101,14 @@ public class HelloController {
 	
 	/**
 	 * 使用Ajax调用  pass the parameters to front-end using ajax
-	 * @url 
+	 * @url: http://localhost/exam_1/mvc/getPerson?name=hhh
 	 * 
 	 * @param name
 	 * @param pw
 	 */
-	@RequestMapping(value = "/getPerson", method = RequestMethod.POST)
+	@RequestMapping(value = "/getPerson", method = RequestMethod.GET)
 	public void getPerson(String name, PrintWriter pw) {
 		pw.write("hello,"+name);
 	}
 	
-	@RequestMapping("/name")
-	public String sayHello() {
-		return "name";
-	}
 }
