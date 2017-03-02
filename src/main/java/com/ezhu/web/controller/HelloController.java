@@ -102,7 +102,7 @@ public class HelloController {
 	/**
 	 * 使用Ajax调用  pass the parameters to front-end using ajax
 	 * @url: http://localhost/exam_1/mvc/getPerson?name=hhh
-	 * 
+	 * 前台页面没有用上
 	 * @param name
 	 * @param pw
 	 */
@@ -110,5 +110,19 @@ public class HelloController {
 	public void getPerson(String name, PrintWriter pw) {
 		pw.write("hello,"+name);
 	}
+	
+	/**
+	 * 在Controller中使用redirect方式处理请求 redirect
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/redirect")
+	public String redirect() {
+		// 本来这里我以为是重定向到对应的页面，结果写上了/test/hello 结果报错
+		// 然后改成了方法名称，正确
+		return "redirect:hello";
+	}
+	
+	
 	
 }
