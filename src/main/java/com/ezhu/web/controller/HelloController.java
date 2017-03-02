@@ -1,9 +1,13 @@
 package com.ezhu.web.controller;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ezhu.domain.Person;
 
@@ -101,6 +107,19 @@ public class HelloController {
 	}
 	
 	/**
+	 * 页面跳转接口
+	 * @url:  
+	 * 
+	 * @param page
+	 * @return
+	 */
+	@RequestMapping(value="/page/{page}", method = RequestMethod.GET)
+	public String page(@PathVariable("page") String page) {
+		System.out.println("page = "+page);
+		return "/test/"+page;
+	}
+	
+	/**
 	 * 使用Ajax调用  pass the parameters to front-end using ajax
 	 * @url: http://localhost/exam_1/mvc/getPerson?name=hhh
 	 * 前台页面没有用上 --> 增加了底部的page方法 --> 页面可以调用了
@@ -124,18 +143,28 @@ public class HelloController {
 		return "redirect:hello";
 	}
 	
-	
 	/**
-	 * 页面跳转接口
-	 * @url:  
+	 * 文件上传
+	 * @url: 
 	 * 
-	 * @param page
+	 * @param request
 	 * @return
+	 * @throws IOException
 	 */
-	@RequestMapping(value="/page/{page}", method = RequestMethod.GET)
-	public String page(@PathVariable("page") String page) {
-		System.out.println("page = "+page);
-		return "/test/"+page;
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public String upload(HttpServletRequest request) throws IOException {
+		MultipartHttpServletRequest mhsq = (MultipartHttpServletRequest) request;
+		MultipartFile file = mhsq.getFile("file");
+		String fileName = file.getOriginalFilename();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+		// 文件名是使用sdf生成时间字符串+文件后缀
+		FileOutputStream fos = new FileOutputStream(request.getSession().getServletContext().getRealPath("/")+"upload/"
+				+ sdf.format(new Date()) + fileName.substring(fileName.lastIndexOf(".")));
+		fos.write(file.getBytes());
+		fos.flush();
+		fos.close();
+		
+		return "/test/hello";
 	}
 	
 }
