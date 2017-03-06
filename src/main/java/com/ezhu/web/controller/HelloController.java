@@ -145,7 +145,8 @@ public class HelloController {
 	
 	/**
 	 * 文件上传
-	 * @url: 
+	 * @url: http://localhost/exam_1/mvc/page/upload/
+	 * 进入上传文件的页面，选择文件，提交，进入 http://localhost/exam_1/mvc/upload/
 	 * 
 	 * @param request
 	 * @return
